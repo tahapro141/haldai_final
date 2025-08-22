@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: emailforge
+    env: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: VITE_FIREBASE_API_KEY
+        fromDatabase:
+          name: emailforge-db
+          property: connectionString
+      - key: VITE_FIREBASE_PROJECT_ID
+        value: relaysai
+      - key: VITE_FIREBASE_APP_ID
+        value: 1:340621972455:web:d7e9c3d9db9527e2fb6342
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+
+databases:
+  - name: emailforge-db
+    databaseName: emailforge
+    plan: free
